@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.codebreaker.model.pojo;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 public class ScoreSummary {
