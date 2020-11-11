@@ -18,8 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.codebreaker.R;
-import edu.cnm.deepdive.codebreaker.adapter.CodeCharacterAdapter;
-import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.databinding.FragmentGameBinding;
 import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
@@ -38,13 +36,6 @@ public class GameFragment extends Fragment {
   private int codeLength;
   private FragmentGameBinding binding;
   private Spinner[] spinners;
-  private NavController navController;
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setHasOptionsMenu(true);
-  }
 
   @Nullable
   @Override
@@ -59,30 +50,7 @@ public class GameFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    setupNavigation(view);
     setupViewModel();
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.game_options, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    boolean handled = true;
-    switch (item.getItemId()) {
-      case R.id.new_game:
-        startGame();
-        break;
-      case R.id.settings:
-        navController.navigate(R.id.action_navigation_game_to_navigation_settings);
-        break;
-      default:
-        handled = super.onOptionsItemSelected(item);
-    }
-    return handled;
   }
 
   private void setupMaps() {
@@ -99,8 +67,6 @@ public class GameFragment extends Fragment {
 
   private void setupViews() {
     binding.submit.setOnClickListener((view) -> recordGuess());
-    binding.summary.setOnClickListener((view) ->
-        navController.navigate(R.id.action_navigation_game_to_navigation_summary));
     int maxCodeLength = getResources().getInteger(R.integer.code_length_pref_max);
     spinners = new Spinner[maxCodeLength];
     LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -113,10 +79,6 @@ public class GameFragment extends Fragment {
       spinners[i] = spinner;
       binding.spinners.addView(spinner);
     }
-  }
-
-  private void setupNavigation(View root) {
-    navController = Navigation.findNavController(root);
   }
 
   private void setupViewModel() {
