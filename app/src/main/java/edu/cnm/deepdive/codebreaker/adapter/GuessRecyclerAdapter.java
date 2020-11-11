@@ -9,14 +9,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class GuessRecyclerAdapter extends RecyclerView.Adapter<Holder> {
 
-  @NotNull
+  @NonNull
   @Override
-  public Holder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+  public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     return null;
   }
 
   @Override
-  public void onBindViewHolder(@NotNull Holder holder, int position) {
+  public void onBindViewHolder(@NonNull Holder holder, int position) {
 
   }
 
